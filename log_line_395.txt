@@ -1,0 +1,39 @@
+Created At: 2026-09-26T20:04:54+03:00
+Completed At: 2026-09-26T20:04:54+03:00
+File Path: `file:///Users/emmanuelngallah/Documents/Kijumbe%20Project/kijumbe_app/lib/l10n/app_en.arb`
+Total Lines: 331
+Total Bytes: 13052
+Showing lines 220 to 250
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+220:   "resetPasswordSubtitle": "Create a strong new password for your Kijumbe account.",
+221:   "passwordResetSuccess": "Your password has been reset successfully! Please login with your new password.",
+222:   "otpSentSuccess": "OTP code has been sent successfully!",
+223:   "otpVerifiedSuccess": "Phone number verified successfully!",
+224:   "passwordsDoNotMatch": "Passwords do not match",
+225:   "resendCodeIn": "Resend code in",
+226:   "resendCode": "Resend Code",
+227:   "passwordsMatch": "Passwords match",
+228:   "loginToYourAccount": "Login to Your Account",
+229:   "loginSubtitle": "Enter your credentials to login to our Kijumbe app.",
+230:   "acceptTermsAndPrivacyWarning": "Please accept the Terms & Conditions and Privacy Policy to continue.",
+231:   "termsAgreementPrefix": "By clicking continuing, you have agreed to our ",
+232:   "termsAndConditions": "Terms & Conditions",
+233:   "andAlsoAbideWithOur": " and abide with our ",
+234:   "privacyPolicy": "Privacy Policy",
+235:   "registerHere": "Register here",
+236: 
+237:   "goodMorning": "Good morning",
+238:   "activeGroups": "Active Groups",
+239:   "recentActivity": "Recent Activity",
+240:   "pendingContributions": "Pending Contributions",
+241:   "depositFunds": "Deposit Funds",
+242:   "sendMoney": "Send Money",
+243:   "viewAll": "View all",
+244:   "createNewGroup": "Create new Group",
+245:   "groupDetails": "Group Details",
+246:   "myGroups": "My Groups",
+247:   "targetPool": "Target Pool",
+248:   "membersPaid": "Members Paid",
+249:   "currentRound": "Current Round",
+250:   "nextPayout": "Next Payout",
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
