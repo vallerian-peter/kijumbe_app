@@ -1,9 +1,16 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kijumbe_app/core/core.dart';
+import 'package:kijumbe_app/features/auth/presentation/screens/auth_gate.dart';
 import 'package:kijumbe_app/helpers/helpers.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final Duration navigationDelay;
+
+  const SplashScreen({
+    super.key,
+    this.navigationDelay = const Duration(seconds: 3),
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -11,11 +18,24 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String _appVersion = '';
+  Timer? _navigationTimer;
 
   @override
   void initState() {
     super.initState();
     _loadAppVersion();
+    _navigationTimer = Timer(widget.navigationDelay, () {
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(builder: (_) => const AuthGate()),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _navigationTimer?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadAppVersion() async {

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:kijumbe_app/core/core.dart';
+import 'package:kijumbe_app/features/auth/auth.dart';
 import '../widgets/widgets.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -114,7 +115,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                               borderRadius: 27,
                               bgColor: AppColors.appPrimaryColor,
                               onPressed: () {
-                                // Navigate to register/onboarding flow
+                                RegistrationTypeBottomSheet.show(context);
                               },
                             ),
                             const SizedBox(height: 12),
@@ -128,7 +129,12 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                               borderColor: Colors.grey.shade300,
                               textColor: Colors.grey.shade600,
                               onPressed: () {
-                                // Navigate to login flow
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const LoginPhoneScreen(),
+                                  ),
+                                );
                               },
                             ),
                             const SizedBox(height: 8),

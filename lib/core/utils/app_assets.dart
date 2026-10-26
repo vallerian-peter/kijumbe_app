@@ -1,6 +1,6 @@
 class AppAssets {
   // Brand Images
-  static const String appLogo = 'assets/images/kijumbe-logo.png';
+  static const String appLogo = 'assets/images/kijumbe-logo-blue.png';
   static const String userAvatar = 'assets/images/user.jpg';
 
   // 3D Fintech Icons
