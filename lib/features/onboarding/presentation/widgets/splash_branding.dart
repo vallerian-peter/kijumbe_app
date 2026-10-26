@@ -8,10 +8,14 @@ class SplashBranding extends StatefulWidget {
     super.key,
     required this.appName,
     this.appTagline,
+    this.duration = const Duration(milliseconds: 1400),
+    this.onAnimationComplete,
   });
 
   final String appName;
   final String? appTagline;
+  final Duration duration;
+  final VoidCallback? onAnimationComplete;
 
   @override
   State<SplashBranding> createState() => _SplashBrandingState();
@@ -32,8 +36,14 @@ class _SplashBrandingState extends State<SplashBranding>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: widget.duration,
     );
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        widget.onAnimationComplete?.call();
+      }
+    });
 
     // 1. Logo: Scales up smoothly from 0.6 to 1.0 with subtle overshoot
     _logoScale = Tween<double>(begin: 0.6, end: 1.0).animate(

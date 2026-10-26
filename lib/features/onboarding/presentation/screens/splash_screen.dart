@@ -2,14 +2,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kijumbe_app/core/core.dart';
 import 'package:kijumbe_app/features/auth/presentation/screens/auth_gate.dart';
+import 'package:kijumbe_app/features/onboarding/presentation/widgets/splash_branding.dart';
 import 'package:kijumbe_app/helpers/helpers.dart';
 
 class SplashScreen extends StatefulWidget {
   final Duration navigationDelay;
+  final Duration loadingDelay;
+  final Duration brandingDuration;
 
   const SplashScreen({
     super.key,
-    this.navigationDelay = const Duration(seconds: 3),
+    this.navigationDelay = const Duration(milliseconds: 5000),
+    this.loadingDelay = const Duration(seconds: 2),
+    this.brandingDuration = const Duration(milliseconds: 1400),
   });
 
   @override
@@ -17,13 +22,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String _appVersion = '';
+  String _appVersion = 'v1.0.0+1';
+  bool _showLoading = false;
+  Timer? _loadingTimer;
   Timer? _navigationTimer;
 
   @override
   void initState() {
     super.initState();
     _loadAppVersion();
+
+    // Loading indicator delays by loadingDelay (2s) after logo and description have appeared
+    _loadingTimer = Timer(widget.brandingDuration + widget.loadingDelay, () {
+      if (!mounted) return;
+      setState(() {
+        _showLoading = true;
+      });
+    });
+
+    // Start navigation timer to proceed to AuthGate after splash flow
     _navigationTimer = Timer(widget.navigationDelay, () {
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
@@ -32,8 +49,13 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  void _onBrandingComplete() {
+    // Branding animation sequence complete
+  }
+
   @override
   void dispose() {
+    _loadingTimer?.cancel();
     _navigationTimer?.cancel();
     super.dispose();
   }
@@ -60,73 +82,45 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
+              // Sequential animated branding: Logo -> App Name -> Description
               Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AppAssets.appLogo,
-                      width: 80,
-                      height: 80,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: AppColors.appPrimaryColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Icon(
-                          Icons.groups_rounded,
-                          size: 40,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: AppSpacing.md),
-
-                    Text(
-                      '${l10n.appName} App',
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: theme.colorScheme.tertiary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    SizedBox(height: AppSpacing.xs - 2),
-
-                    Text(
-                      l10n.appTagline,
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.tertiary.withValues(alpha: 0.6),
-                      ),
-                    ),
-                  ],
+                child: SplashBranding(
+                  appName: '${l10n.appName} App',
+                  appTagline: l10n.appTagline,
+                  duration: widget.brandingDuration,
+                  onAnimationComplete: _onBrandingComplete,
                 ),
               ),
 
               Positioned(
                 bottom: 16,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircularProgressIndicator(
-                      strokeWidth: 2.0,
-                      constraints: const BoxConstraints(
-                        minWidth: 25,
-                        minHeight: 25,
+                    // Loading indicator delays 2s after logo & description appear
+                    AnimatedOpacity(
+                      opacity: _showLoading ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeIn,
+                      child: CircularProgressIndicator(
+                        key: const Key('splash_loading_indicator'),
+                        strokeWidth: 2.0,
+                        constraints: const BoxConstraints(
+                          minWidth: 25,
+                          minHeight: 25,
+                        ),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          theme.colorScheme.primary,
+                        ),
                       ),
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
                     ),
 
                     SizedBox(height: AppSpacing.sm - 2),
 
-                    // version info (App version: v<version-number>+<build-number>)
+                    // Version info is always visible with zero delay
                     Text(
-                      _appVersion.isNotEmpty
-                          ? '${l10n.appVersion}: $_appVersion'
-                          : '',
+                      '${l10n.appVersion}: $_appVersion',
+                      key: const Key('splash_version_text'),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.tertiary.withValues(alpha: 0.5),
                         fontSize: AppTextSizes.sm - 1,
