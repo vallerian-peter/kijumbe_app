@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 
 /// Formats 20-digit NIDA number into:
-/// `YYYYMMDD-XXXXX-XXXXX-XX` (e.g. 20011229-16001-00001-23)
+/// `YYYYMMDD-XXXXX-XXXXX-XX` (e.g. 19950824-11105-00001-27)
 class NidaInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(

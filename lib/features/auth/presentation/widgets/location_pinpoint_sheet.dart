@@ -162,46 +162,52 @@ class _LocationPinpointSheetState extends State<LocationPinpointSheet> {
     final isDark = theme.brightness == Brightness.dark;
     final effectivePrimary = isDark ? AppColors.darkModePrimaryColor : AppColors.primaryColor;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.88,
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E232A) : Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          // Handle
-          Container(
-            width: 44,
-            height: 4,
-            decoration: BoxDecoration(
-              color: isDark ? Colors.grey[700] : Colors.grey[300],
-              borderRadius: BorderRadius.circular(2),
+    return Material(
+      color: isDark ? const Color(0xFF1E232A) : Colors.white,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      clipBehavior: Clip.antiAlias,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.88,
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            // Handle
+            Container(
+              width: 44,
+              height: 4,
+              decoration: BoxDecoration(
+                color: isDark ? Colors.grey[700] : Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-          ),
-          const SizedBox(height: 14),
+            const SizedBox(height: 14),
 
-          // Header
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  l10n.pinpointStayAddressTitle,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+            // Header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.pinpointStayAddressTitle,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Divider(height: 1),
+            Divider(
+              height: 1,
+              thickness: 0.6,
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : Colors.black.withValues(alpha: 0.06),
+            ),
 
           Expanded(
             child: ListView(
@@ -359,34 +365,37 @@ class _LocationPinpointSheetState extends State<LocationPinpointSheet> {
                   final loc = _quickLocations[index];
                   final isSelected = _currentAddress == loc['name'];
 
-                  return ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    dense: true,
-                    leading: Icon(
-                      Icons.place_outlined,
-                      size: 20,
-                      color: isSelected ? effectivePrimary : Colors.grey,
-                    ),
-                    title: Text(
-                      loc['name'] as String,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                        color: isSelected
-                            ? effectivePrimary
-                            : (isDark ? Colors.white : Colors.black87),
+                  return Material(
+                    color: Colors.transparent,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      dense: true,
+                      leading: Icon(
+                        Icons.place_outlined,
+                        size: 20,
+                        color: isSelected ? effectivePrimary : Colors.grey,
                       ),
-                    ),
-                    trailing: isSelected
-                        ? Icon(Icons.check_circle_rounded, color: effectivePrimary, size: 18)
-                        : null,
-                    onTap: () {
-                      _applyCoordinates(
-                        loc['lat'] as double,
-                        loc['lng'] as double,
+                      title: Text(
                         loc['name'] as String,
-                      );
-                    },
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                          color: isSelected
+                              ? effectivePrimary
+                              : (isDark ? Colors.white : Colors.black87),
+                        ),
+                      ),
+                      trailing: isSelected
+                          ? Icon(Icons.check_circle_rounded, color: effectivePrimary, size: 18)
+                          : null,
+                      onTap: () {
+                        _applyCoordinates(
+                          loc['lat'] as double,
+                          loc['lng'] as double,
+                          loc['name'] as String,
+                        );
+                      },
+                    ),
                   );
                 }),
               ],
@@ -398,11 +407,6 @@ class _LocationPinpointSheetState extends State<LocationPinpointSheet> {
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
             decoration: BoxDecoration(
               color: isDark ? const Color(0xFF1E232A) : Colors.white,
-              border: Border(
-                top: BorderSide(
-                  color: isDark ? Colors.white12 : Colors.grey[200]!,
-                ),
-              ),
             ),
             child: CustomButton(
               text: l10n.confirmLocation,
@@ -421,7 +425,8 @@ class _LocationPinpointSheetState extends State<LocationPinpointSheet> {
           ),
         ],
       ),
-    );
+    ),
+  );
   }
 }
 

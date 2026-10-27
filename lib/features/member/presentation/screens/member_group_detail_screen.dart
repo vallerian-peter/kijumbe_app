@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kijumbe_app/core/components/custom_back_button.dart';
 import 'package:kijumbe_app/core/components/custom_button.dart';
 import 'package:kijumbe_app/core/utils/colors.dart';
+import 'package:kijumbe_app/features/kijumbe/presentation/screens/group_members_list_screen.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/screens/kijumbe_group_detail_screen.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/widgets/group_detail/group_header_card.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/widgets/group_detail/group_member_card.dart';
@@ -318,6 +319,53 @@ class _MemberGroupDetailScreenState extends State<MemberGroupDetailScreen> {
                       ),
                     ),
                   ),
+                  const Spacer(),
+                  // View All button
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => GroupMembersListScreen(
+                          group: widget.group,
+                          members: _members,
+                          isLeader: false,
+                        ),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : Colors.black.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isDark ? Colors.white12 : Colors.grey[300]!,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            l10n?.viewAll ?? 'View All',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: effectivePrimary,
+                            ),
+                          ),
+                          const SizedBox(width: 3),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 10,
+                            color: effectivePrimary,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -350,13 +398,6 @@ class _MemberGroupDetailScreenState extends State<MemberGroupDetailScreen> {
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF22272E) : Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.08),
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
         borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
       ),
       child: SafeArea(

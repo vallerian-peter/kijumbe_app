@@ -1421,7 +1421,7 @@ abstract class AppLocalizations {
   /// No description provided for @viewAll.
   ///
   /// In en, this message translates to:
-  /// **'View all'**
+  /// **'View All'**
   String get viewAll;
 
   /// No description provided for @createNewGroup.
@@ -2335,6 +2335,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgot Password?'**
   String get forgotPassword;
+
+  /// No description provided for @searchGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Search groups...'**
+  String get searchGroups;
+
+  /// No description provided for @searchMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search members...'**
+  String get searchMembers;
+
+  /// No description provided for @allMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'All Members'**
+  String get allMembers;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get filterPaid;
+
+  /// No description provided for @filterPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get filterPending;
+
+  /// No description provided for @turnOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn #{turn}'**
+  String turnOrder(int turn);
+
+  /// No description provided for @noMembersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No members found'**
+  String get noMembersFound;
+
+  /// No description provided for @noGroupsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No groups found'**
+  String get noGroupsFound;
+
+  /// No description provided for @membersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} members'**
+  String membersCount(int count);
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Search'**
+  String get clearFilters;
 }
 
 class _AppLocalizationsDelegate

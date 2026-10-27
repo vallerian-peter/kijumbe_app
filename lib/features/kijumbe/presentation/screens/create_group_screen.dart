@@ -269,9 +269,6 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
               decoration: BoxDecoration(
                 color: bgColor,
-                border: Border(
-                  top: BorderSide(color: borderColor),
-                ),
               ),
               child: Row(
                 children: [

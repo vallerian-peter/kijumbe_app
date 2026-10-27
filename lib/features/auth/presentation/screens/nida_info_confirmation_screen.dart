@@ -22,7 +22,7 @@ class NidaInfoConfirmationScreen extends StatelessWidget {
     if (clean.length == 20) {
       return '${clean.substring(0, 8)}-${clean.substring(8, 13)}-${clean.substring(13, 18)}-${clean.substring(18, 20)}';
     }
-    return rawNin.isNotEmpty ? rawNin : '20011229-16001-00001-23';
+    return rawNin.isNotEmpty ? rawNin : '19950824-11105-00001-27';
   }
 
   String _formatDob(DateTime? date) {
@@ -240,13 +240,6 @@ class NidaInfoConfirmationScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
-                    blurRadius: 10,
-                    offset: const Offset(0, -2),
-                  ),
-                ],
               ),
               child: Row(
                 children: [

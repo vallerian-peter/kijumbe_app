@@ -105,14 +105,14 @@ class AppColors {
 
   /// 5. Dynamic Shine Primary Button Gradient (Gives buttons a sleek, non-static shine)
   static const LinearGradient primaryButtonGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    begin: Alignment(-0.2, 0.2), // nearby center
+    end: Alignment.topRight,     // right-top
     colors: [
-      Color(0xFF3B7BFF), // Upper vibrant shine highlight
-      Color(0xFF1D54DF), // Balanced rich primary blue
-      Color(0xFF123CA8), // Softened foundation blue (eliminates harsh near-black dropoff)
+      Color(0xFF1546BD), // Balanced rich primary blue (not deep as 0xFF0C2A8A and not too light)
+      Color(0xFF1C54DE), // Core light-primary tone
+      Color(0xFF306EFF), // 10% luminous fade-in of light primary towards right-top
     ],
-    stops: [0.0, 0.52, 1.0],
+    stops: [0.0, 0.50, 1.0],
   );
 
   /// 6. Dark Get Started Gradient (Deep, sleek dark onboarding background)
@@ -129,14 +129,14 @@ class AppColors {
 
   /// 7. Dark Primary Button Gradient (Balanced, accessible shine for dark mode buttons)
   static const LinearGradient darkPrimaryButtonGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    begin: Alignment(-0.2, 0.2), // nearby center
+    end: Alignment.topRight,     // right-top
     colors: [
-      Color(0xFF709DFB), // Soft vibrant luminous blue
-      darkModePrimaryColor, // Balanced core blue (0xFF5B8DEF)
-      darkModePrimaryDark, // Rich anchor blue (0xFF386DD8)
+      Color(0xFF3F75E4), // Balanced foundation blue
+      Color(0xFF5589F0), // Core light-primary tone
+      Color(0xFF75A1FC), // 10% luminous fade-in towards right-top
     ],
-    stops: [0.0, 0.52, 1.0],
+    stops: [0.0, 0.50, 1.0],
   );
 
   /// Helper to get the correct primary button gradient depending on brightness

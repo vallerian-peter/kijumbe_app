@@ -155,7 +155,13 @@ Future<DateTime?> showCustomDatePicker({
                       ],
                     ),
                   ),
-                  const Divider(height: 1),
+                  Divider(
+                    height: 1,
+                    thickness: 0.6,
+                    color: isDark
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : Colors.black.withValues(alpha: 0.06),
+                  ),
 
                   // Compact Header: "Sat, 26 Dec 2000" <---> "25 yrs old"
                   Padding(

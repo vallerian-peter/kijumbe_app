@@ -16,7 +16,7 @@ class HorizontalStepper extends StatelessWidget {
     this.borderRadius = 4.0,
     this.activeColor,
     this.inactiveColor,
-  }) : assert(currentStep >= 1 && currentStep <= totalSteps);
+  }) : assert(totalSteps >= 1);
 
   final int currentStep;
   final int totalSteps;
@@ -33,6 +33,7 @@ class HorizontalStepper extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final int effectiveCurrent = currentStep.clamp(1, totalSteps);
 
     final Color effectiveActive = activeColor ??
         (isDark ? AppColors.darkModePrimaryColor : theme.colorScheme.primary);
@@ -59,7 +60,7 @@ class HorizontalStepper extends StatelessWidget {
                 ),
               ),
               Text(
-                '$currentStep of $totalSteps',
+                '$effectiveCurrent of $totalSteps',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -74,7 +75,7 @@ class HorizontalStepper extends StatelessWidget {
         Row(
           children: List.generate(totalSteps, (index) {
             final stepNumber = index + 1;
-            final isCompletedOrCurrent = stepNumber <= currentStep;
+            final isCompletedOrCurrent = stepNumber <= effectiveCurrent;
 
             return Expanded(
               child: Container(

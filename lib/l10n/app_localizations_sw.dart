@@ -698,7 +698,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get sendMoney => 'Tuma Pesa';
 
   @override
-  String get viewAll => 'Tazama yote';
+  String get viewAll => 'Tazama Yote';
 
   @override
   String get createNewGroup => 'Tengeneza Kikundi Kipya';
@@ -1194,4 +1194,41 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get forgotPassword => 'Umesahau Nenosiri?';
+
+  @override
+  String get searchGroups => 'Tafuta vikundi...';
+
+  @override
+  String get searchMembers => 'Tafuta wanachama...';
+
+  @override
+  String get allMembers => 'Wanachama Wote';
+
+  @override
+  String get filterAll => 'Wote';
+
+  @override
+  String get filterPaid => 'Wamelipa';
+
+  @override
+  String get filterPending => 'Wanasubiri';
+
+  @override
+  String turnOrder(int turn) {
+    return 'Awamu #$turn';
+  }
+
+  @override
+  String get noMembersFound => 'Hakuna mwanachama aliyepatikana';
+
+  @override
+  String get noGroupsFound => 'Hakuna kikundi kilichopatikana';
+
+  @override
+  String membersCount(int count) {
+    return 'Wanachama $count';
+  }
+
+  @override
+  String get clearFilters => 'Futa Utafutaji';
 }

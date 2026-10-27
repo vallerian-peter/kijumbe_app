@@ -434,5 +434,17 @@
   },
   "unpaid": "Haijalipwa",
   "dashboard": "Dashibodi",
-  "forgotPassword": "Umesahau Nenosiri?"
+  "forgotPassword": "Umesahau Nenosiri?",
+  "searchGroups": "Tafuta vikundi...",
+  "searchMembers": "Tafuta wanachama...",
+  "allMembers": "Wanachama Wote",
+  "viewAll": "Tazama Yote",
+  "filterAll": "Wote",
+  "filterPaid": "Wamelipa",
+  "filterPending": "Wanasubiri",
+  "turnOrder": "Awamu #{turn}",
+  "noMembersFound": "Hakuna mwanachama aliyepatikana",
+  "noGroupsFound": "Hakuna kikundi kilichopatikana",
+  "membersCount": "Wanachama {count}",
+  "clearFilters": "Futa Utafutaji"
 }

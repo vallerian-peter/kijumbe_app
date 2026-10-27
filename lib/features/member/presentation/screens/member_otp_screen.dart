@@ -156,7 +156,6 @@ class _MemberOtpScreenState extends State<MemberOtpScreen> {
                       length: 6,
                       onCompleted: (val) {
                         setState(() => _currentOtp = val);
-                        _verifyOtp();
                       },
                       onChanged: (val) {
                         setState(() => _currentOtp = val);

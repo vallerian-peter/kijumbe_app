@@ -12,6 +12,11 @@ ThemeData lightTheme = ThemeData(
     onPrimary: AppColors.appPrimaryDarkColor,
     onSecondary: AppColors.appPrimaryLightColor,
   ),
+  dividerTheme: DividerThemeData(
+    color: Colors.black.withValues(alpha: 0.07),
+    thickness: 0.6,
+    space: 1,
+  ),
   inputDecorationTheme: InputDecorationTheme(
     errorStyle: const TextStyle(
       fontSize: 12,
@@ -40,6 +45,11 @@ ThemeData darkTheme = ThemeData(
     error: AppColors.redColor,
     onPrimary: Colors.white,
     onSecondary: AppColors.darkModePrimaryLight,
+  ),
+  dividerTheme: DividerThemeData(
+    color: Colors.white.withValues(alpha: 0.08),
+    thickness: 0.6,
+    space: 1,
   ),
   inputDecorationTheme: InputDecorationTheme(
     errorStyle: const TextStyle(

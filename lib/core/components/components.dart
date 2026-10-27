@@ -7,6 +7,7 @@ export 'custom_checkbox_tile.dart';
 export 'custom_date_picker.dart';
 export 'custom_otp_input.dart';
 export 'custom_phone_number_field.dart';
+export 'custom_search_bar.dart';
 export 'custom_selection_input.dart';
 export 'custom_text_field.dart';
 export 'custom_toast.dart';

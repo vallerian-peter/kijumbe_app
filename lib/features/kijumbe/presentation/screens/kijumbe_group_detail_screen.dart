@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kijumbe_app/core/components/custom_back_button.dart';
 import 'package:kijumbe_app/core/utils/colors.dart';
-import 'package:kijumbe_app/features/kijumbe/presentation/screens/invite_members_screen.dart';
+import 'package:kijumbe_app/features/kijumbe/presentation/screens/group_members_list_screen.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/screens/make_contribution_screen.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/widgets/group_detail/group_add_member_sheet.dart';
 import 'package:kijumbe_app/features/kijumbe/presentation/widgets/group_detail/group_header_card.dart';
@@ -353,73 +353,51 @@ class _KijumbeGroupDetailScreenState extends State<KijumbeGroupDetailScreen> {
                         ),
                       ),
                       const Spacer(),
-                      // Swap Turns Controller button (compact icon button with tooltip)
-                      Tooltip(
-                        message: l10n?.swapMemberTurns ?? 'Swap Turns',
-                        child: GestureDetector(
-                          onTap: _openSwapTurnsSheet,
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? Colors.white.withValues(alpha: 0.08)
-                                  : Colors.black.withValues(alpha: 0.05),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: isDark
-                                    ? Colors.white12
-                                    : Colors.grey[300]!,
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.swap_vert_rounded,
-                              color: isDark
-                                  ? Colors.white
-                                  : AppColors.appPrimaryColor,
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      // Add Member button
+                      // View All button
                       GestureDetector(
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) =>
-                                InviteMembersScreen(group: widget.group),
+                            builder: (_) => GroupMembersListScreen(
+                              group: widget.group,
+                              members: _members,
+                              isLeader: true,
+                            ),
                           ),
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 8),
+                              horizontal: 10, vertical: 6),
                           decoration: BoxDecoration(
-                            gradient: AppColors.primaryButtonGradient,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primaryColor
-                                    .withValues(alpha: 0.35),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
+                            color: isDark
+                                ? Colors.white.withValues(alpha: 0.08)
+                                : Colors.black.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: isDark ? Colors.white12 : Colors.grey[300]!,
+                            ),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.person_add_alt_1_rounded,
-                                  color: Colors.white, size: 14),
-                              const SizedBox(width: 6),
                               Text(
-                                l10n?.addMember ?? 'Add Member',
-                                style: const TextStyle(
+                                l10n?.viewAll ?? 'View All',
+                                style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: 12,
+                                  fontSize: 11,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white,
+                                  color: isDark
+                                      ? Colors.white
+                                      : AppColors.appPrimaryColor,
                                 ),
+                              ),
+                              const SizedBox(width: 3),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 10,
+                                color: isDark
+                                    ? Colors.white
+                                    : AppColors.appPrimaryColor,
                               ),
                             ],
                           ),

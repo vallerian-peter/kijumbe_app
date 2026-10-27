@@ -167,7 +167,6 @@ class _CreateAccountOtpScreenState extends State<CreateAccountOtpScreen> {
                         setState(() {
                           _currentOtp = pin;
                         });
-                        _verifyOtp();
                       },
                     ),
                     const SizedBox(height: 32),

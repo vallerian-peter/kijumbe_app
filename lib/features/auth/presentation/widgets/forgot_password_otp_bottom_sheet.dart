@@ -186,7 +186,6 @@ class _ForgotPasswordOtpContentState extends State<ForgotPasswordOtpContent> {
             setState(() {
               _currentOtp = pin;
             });
-            _handleVerify();
           },
         ),
 

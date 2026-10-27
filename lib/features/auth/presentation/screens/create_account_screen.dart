@@ -231,13 +231,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, -3),
-                  ),
-                ],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

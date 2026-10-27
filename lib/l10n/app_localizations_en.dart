@@ -698,7 +698,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendMoney => 'Send Money';
 
   @override
-  String get viewAll => 'View all';
+  String get viewAll => 'View All';
 
   @override
   String get createNewGroup => 'Create new Group';
@@ -1192,4 +1192,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get searchGroups => 'Search groups...';
+
+  @override
+  String get searchMembers => 'Search members...';
+
+  @override
+  String get allMembers => 'All Members';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterPaid => 'Paid';
+
+  @override
+  String get filterPending => 'Pending';
+
+  @override
+  String turnOrder(int turn) {
+    return 'Turn #$turn';
+  }
+
+  @override
+  String get noMembersFound => 'No members found';
+
+  @override
+  String get noGroupsFound => 'No groups found';
+
+  @override
+  String membersCount(int count) {
+    return '$count members';
+  }
+
+  @override
+  String get clearFilters => 'Clear Search';
 }

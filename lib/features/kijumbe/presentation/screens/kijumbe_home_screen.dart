@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:kijumbe_app/core/core.dart';
 import 'package:kijumbe_app/features/kijumbe/kijumbe.dart';
 
@@ -12,48 +11,53 @@ class KijumbeHomeScreen extends StatefulWidget {
 }
 
 class _KijumbeHomeScreenState extends State<KijumbeHomeScreen> {
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
-  // Kijumbe's name – replace with actual user data from provider later
-  static const String _kijumbeName = 'Emmanuel';
-
-  final List<Map<String, dynamic>> _screensData = [
-    {
-      "screen": KijumbeDashboardScreen(),
-      "icon": Iconsax.home_outline,
-      "activeIcon": Iconsax.home_bold,
-      "label": "Dashboard",
-    },
-    {
-      "screen": KijumbeGroupsScreen(),
-      "icon": Bootstrap.people,
-      "activeIcon": Bootstrap.people_fill,
-      "label": "Groups",
-    },
-    {
-      "screen": KijumbeSettingsScreen(),
-      "icon": Ionicons.personOutline,
-      "activeIcon": Ionicons.person,
-      "label": "Profile",
-    },
+  final List<Widget> _screens = const [
+    KijumbeDashboardScreen(),
+    KijumbeGroupsScreen(),
+    KijumbeSettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
+
+    final navItems = [
+      {
+        'icon': Iconsax.home_outline,
+        'activeIcon': Iconsax.home_bold,
+        'label': l10n?.dashboard ?? 'Dashboard',
+      },
+      {
+        'icon': Bootstrap.people,
+        'activeIcon': Bootstrap.people_fill,
+        'label': l10n?.groups ?? 'Groups',
+      },
+      {
+        'icon': Iconsax.setting_2_outline,
+        'activeIcon': Iconsax.setting_2_bold,
+        'label': l10n?.settings ?? 'Settings',
+      },
+    ];
 
     return Scaffold(
       backgroundColor:
           isDark ? AppColors.darkGreyColor : AppColors.appGreyWhite,
-      bottomNavigationBar: _buildBottomNavBar(isDark),
-      body: _screensData[selectedIndex]['screen'],
+      bottomNavigationBar: _buildBottomNavBar(isDark, navItems),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
+      ),
     );
   }
 
-  Widget _buildBottomNavBar(bool isDark) {
+  Widget _buildBottomNavBar(
+      bool isDark, List<Map<String, dynamic>> navItems) {
     final navBg = isDark ? const Color(0xFF2A2A2A) : Colors.white;
-    final activeColor = AppColors.primaryColor;
+    final activeColor = AppColors.primaryFor(isDark);
     final inactiveColor = isDark
         ? Colors.white38
         : AppColors.darkGreyColor.withValues(alpha: 0.5);
@@ -79,14 +83,13 @@ class _KijumbeHomeScreenState extends State<KijumbeHomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _screensData.asMap().entries.map((entry) {
+            children: navItems.asMap().entries.map((entry) {
               final index = entry.key;
               final item = entry.value;
-              final isSelected = selectedIndex == index;
-              final isProfile = index == _screensData.length - 1;
+              final isSelected = _selectedIndex == index;
 
               return GestureDetector(
-                onTap: () => setState(() => selectedIndex = index),
+                onTap: () => setState(() => _selectedIndex = index),
                 behavior: HitTestBehavior.opaque,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
@@ -101,27 +104,23 @@ class _KijumbeHomeScreenState extends State<KijumbeHomeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Profile tab shows CircleAvatar instead of icon
-                      if (isProfile)
-                        _buildProfileNavAvatar(isSelected, activeColor, inactiveColor)
-                      else
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          child: Icon(
-                            isSelected
-                                ? item['activeIcon'] as IconData
-                                : item['icon'] as IconData,
-                            key: ValueKey(isSelected),
-                            color: isSelected ? activeColor : inactiveColor,
-                            size: 24,
-                          ),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: Icon(
+                          isSelected
+                              ? item['activeIcon'] as IconData
+                              : item['icon'] as IconData,
+                          key: ValueKey('$index-$isSelected'),
+                          color: isSelected ? activeColor : inactiveColor,
+                          size: 24,
                         ),
+                      ),
                       const SizedBox(height: 4),
                       Text(
                         item['label'] as String,
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          fontSize: 10,
+                          fontSize: 11,
                           fontWeight: isSelected
                               ? FontWeight.w700
                               : FontWeight.w400,
@@ -133,49 +132,6 @@ class _KijumbeHomeScreenState extends State<KijumbeHomeScreen> {
                 ),
               );
             }).toList(),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileNavAvatar(
-      bool isSelected, Color activeColor, Color inactiveColor) {
-    final initial = _kijumbeName.isNotEmpty
-        ? _kijumbeName[0].toUpperCase()
-        : 'K';
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      width: 26,
-      height: 26,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: isSelected ? AppColors.primaryTealGradient : null,
-        color: isSelected ? null : inactiveColor.withValues(alpha: 0.15),
-        border: Border.all(
-          color: isSelected
-              ? AppColors.primaryColor
-              : inactiveColor.withValues(alpha: 0.4),
-          width: isSelected ? 2 : 1,
-        ),
-        boxShadow: isSelected
-            ? [
-                BoxShadow(
-                  color: AppColors.primaryColor.withValues(alpha: 0.35),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ]
-            : null,
-      ),
-      child: Center(
-        child: Text(
-          initial,
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 11,
-            fontWeight: FontWeight.w800,
-            color: isSelected ? Colors.white : inactiveColor,
           ),
         ),
       ),

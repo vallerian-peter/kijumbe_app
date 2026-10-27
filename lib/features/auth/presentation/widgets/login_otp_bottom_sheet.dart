@@ -186,7 +186,6 @@ class _LoginOtpContentState extends State<LoginOtpContent> {
             setState(() {
               _currentOtp = pin;
             });
-            _handleVerify();
           },
         ),
 
@@ -220,6 +219,15 @@ class _LoginOtpContentState extends State<LoginOtpContent> {
               ),
             ],
           ],
+        ),
+        const SizedBox(height: 20),
+
+        // Verify CTA Button
+        CustomButon(
+          text: l10n.verifyOtp,
+          height: 52,
+          borderRadius: 26,
+          onPressed: _currentOtp.trim().length == 6 ? _handleVerify : null,
         ),
         const SizedBox(height: 12),
       ],

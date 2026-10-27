@@ -434,5 +434,31 @@
   },
   "unpaid": "Unpaid",
   "dashboard": "Dashboard",
-  "forgotPassword": "Forgot Password?"
+  "forgotPassword": "Forgot Password?",
+  "searchGroups": "Search groups...",
+  "searchMembers": "Search members...",
+  "allMembers": "All Members",
+  "viewAll": "View All",
+  "filterAll": "All",
+  "filterPaid": "Paid",
+  "filterPending": "Pending",
+  "turnOrder": "Turn #{turn}",
+  "@turnOrder": {
+    "placeholders": {
+      "turn": {
+        "type": "int"
+      }
+    }
+  },
+  "noMembersFound": "No members found",
+  "noGroupsFound": "No groups found",
+  "membersCount": "{count} members",
+  "@membersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clearFilters": "Clear Search"
 }

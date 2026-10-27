@@ -113,7 +113,6 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                               text: l10n.getStarted,
                               height: 54,
                               borderRadius: 27,
-                              bgColor: AppColors.appPrimaryColor,
                               onPressed: () {
                                 RegistrationTypeBottomSheet.show(context);
                               },

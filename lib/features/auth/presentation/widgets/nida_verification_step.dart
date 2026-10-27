@@ -110,10 +110,10 @@ class _NidaVerificationStepState extends State<NidaVerificationStep> {
         ),
         const SizedBox(height: 20),
 
-        // NIN Text Field with strict hyphen formatting (20011229-16001-00001-23)
+        // NIN Text Field with strict hyphen formatting (e.g. 19950824-11105-00001-27)
         CustomTextField(
           label: l10n.nidaNumberLabel,
-          hintText: '20011229-16001-00001-23',
+          hintText: '19950824-11105-00001-27',
           controller: _ninController,
           keyboardType: TextInputType.number,
           inputFormatters: [NidaInputFormatter()],

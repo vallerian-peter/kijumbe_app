@@ -98,59 +98,30 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         );
         return;
       }
-      setState(() => _currentStep = 5);
-    } else if (_currentStep == 5) {
-      // Step 5: Mobile Phone Number
-      final rawPhone = _data.phone.replaceAll(RegExp(r'\D'), '');
-      if (rawPhone.length < 8) {
-        CustomToast.showWarning(
-          context,
-          'Please enter a valid phone number',
-        );
-        return;
-      }
-      CustomToast.showSuccess(
-        context,
-        'Verification code sent to ${_data.displayPhone}',
-      );
-      setState(() => _currentStep = 6);
-    } else if (_currentStep == 6) {
-      // Step 6: Phone OTP Verification - only process match when user clicks the button
-      if (_data.otpCode.length != 6) {
-        CustomToast.showWarning(
-          context,
-          context.l10n.otpRequired,
-        );
-        return;
-      }
-      _data.isPhoneVerified = true;
-      ConfirmationAlertDialog.show(
-        context,
-        type: AlertType.success,
-        title: context.l10n.profileCompletedTitle,
-        message: context.l10n.profileCompletedMsg,
-        confirmText: context.l10n.continueText,
-        showCancel: false,
-        onConfirm: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(
-              builder: (_) => RegistrationSuccessScreen(
-                firstName: _data.firstName,
-                phone: _data.displayPhone,
-                onProceed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute<void>(
-                      builder: (_) => const KijumbeDashboard(),
-                    ),
-                    (route) => false,
-                  );
-                },
-              ),
-            ),
-          );
-        },
-      );
+      _onCompleteRegistration();
     }
+  }
+
+  void _onCompleteRegistration() {
+    ConfirmationAlertDialog.show(
+      context,
+      type: AlertType.success,
+      title: context.l10n.profileCompletedTitle,
+      message: context.l10n.profileCompletedMsg,
+      confirmText: context.l10n.continueText,
+      showCancel: false,
+      onConfirm: () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<void>(
+            builder: (_) => RegistrationSuccessScreen(
+              firstName: _data.firstName,
+              phone: _data.displayPhone,
+              destinationScreen: const KijumbeDashboard(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _onPreviousStep() {
@@ -187,9 +158,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   bool _isContinueButtonEnabled() {
     if (_currentStep == 4) {
       return _data.isNidaVerified;
-    }
-    if (_currentStep == 6) {
-      return _data.otpCode.length == 6;
     }
     return true;
   }
@@ -659,13 +627,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
-          ),
-        ],
       ),
       child: Row(
         children: [
